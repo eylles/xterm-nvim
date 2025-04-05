@@ -36,10 +36,8 @@ if [ -z "$TMUX" ] ;then
     ID=$(tmux ls | grep nvim | cut -d: -f1) # get the id of a detached session
     if [ -z "$ID" ] ;then
         tmux new-session -s "nvim" "${vimcmd}" \; attach # if not existing, create one
-        # tmux attach-session -t "nvim" # attach to existing
     else
         tmux attach-session -t "$ID" # attach to existing
         tmux new-window "${vimcmd}" # if existing, open new tab
-        # tmux next-window "$ID"
     fi
 fi
