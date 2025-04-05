@@ -2,6 +2,8 @@
 
 # wrapper to launch neovim inside tmux
 
+s_id="nvim"
+
 nv_cmd="/usr/bin/nvim"
 
 config_dir="${XDG_CONFIG_HOME:-${HOME}/.config}/gnvim"
@@ -23,6 +25,9 @@ term_cmd="x-terminal-emulator"
 
 # neovim command
 nv_cmd="${nv_cmd}"
+
+# tmux session id
+s_id="${s_id}"
 __HEREDOC__
 fi
 
@@ -34,10 +39,10 @@ fi
 
 if [ -z "$TMUX" ] ;then
     # id of session
-    ID=$(tmux ls | grep nvim | cut -d: -f1)
+    ID=$(tmux ls | grep "$s_id" | cut -d: -f1)
     if [ -z "$ID" ] ;then
         # if not existing, create one
-        tmux new-session -s "nvim" "${vimcmd}" \; attach
+        tmux new-session -s "$s_id" "${vimcmd}" \; attach
     else
         # attach to existing
         tmux attach-session -t "$ID"

@@ -21,6 +21,9 @@ term_cmd="x-terminal-emulator"
 
 # neovim command
 nv_cmd="/usr/bin/nvim"
+
+# tmux session id
+s_id="nvim"
 __HEREDOC__
 fi
 
