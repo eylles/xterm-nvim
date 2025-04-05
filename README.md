@@ -2,7 +2,7 @@
 
 A pair of shell wrappers with tmux to provide a sessioned "tabbed" (neo)vim client
 
-<img src="./screenshot1.png">
+<img src="./Screenshot.png">
 
 
 ## install
