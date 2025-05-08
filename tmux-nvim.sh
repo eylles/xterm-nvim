@@ -31,6 +31,15 @@ s_id="${s_id}"
 __HEREDOC__
 fi
 
+ID=""
+case "$1" in
+    --session-id)
+        shift
+        ID="$1"
+        shift
+        ;;
+esac
+
 if [ -n "${1}" ]; then
     vimcmd="$nv_cmd ${1}"
 else
@@ -42,7 +51,8 @@ if [ -z "$TMUX" ] ;then
     ID=$(tmux ls | grep "$s_id" | cut -d: -f1)
     if [ -z "$ID" ] ;then
         # if not existing, create one
-        tmux new-session -s "$s_id" "${vimcmd}" \; attach
+        ID="$s_id"
+        tmux new-session -s "$ID" "${vimcmd}" \; attach
     else
         # attach to existing
         tmux attach-session -t "$ID"
