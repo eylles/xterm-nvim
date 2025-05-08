@@ -32,16 +32,17 @@ __HEREDOC__
 fi
 
 ID=""
+use_id=""
 case "$1" in
     --session-id)
         shift
-        ID="$1"
+        use_id="$1"
         shift
         ;;
 esac
 
-if [ -n "${1}" ]; then
-    vimcmd="$nv_cmd ${1}"
+if [ "$#" -gt 0 ]; then
+    vimcmd="$nv_cmd ${*}"
 else
     vimcmd="$nv_cmd"
 fi
@@ -51,7 +52,11 @@ if [ -z "$TMUX" ] ;then
     ID=$(tmux ls | grep "$s_id" | cut -d: -f1)
     if [ -z "$ID" ] ;then
         # if not existing, create one
-        ID="$s_id"
+        if [ -n "$use_id" ]; then
+            ID="$use_id"
+        else
+            ID="$s_id"
+        fi
         tmux new-session -s "$ID" "${vimcmd}" \; attach
     else
         # attach to existing
