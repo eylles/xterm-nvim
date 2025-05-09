@@ -32,3 +32,9 @@ changes, for it to work your terminal emulator or wrapper must support the `-nam
 as by convenience with those you can set up rules in your window manager to to always treat the
 terminal window as a floating window (if you use a tiling window manager) to be always on top, the
 name and class passed onto the vim anywhere terminal is `GVim`
+
+#### wayland support
+
+In addition to the previous requirements you will need these:
+- [wl-clipboard](https://github.com/bugaevc/wl-clipboard)
+- [wtype](https://github.com/atx/wtype)
