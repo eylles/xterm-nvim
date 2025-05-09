@@ -11,7 +11,6 @@ case "$1" in
     -c|clipboard)
         shift
         xclip -o -selection clipboard > "$TMP_FILE"
-        use_clipboard="true"
         ;;
 esac
 
