@@ -38,8 +38,19 @@ else
   UserID="$UID"
 fi
 
+class="gnvim"
+use_class=""
+case "$1" in
+    --class)
+        shift
+        use_class="$1"
+        class="$1"
+        shift
+        ;;
+esac
+
 run_dir="/var/run/user/${UserID}/gnvim"
-run_file="${run_dir}/gnvim.lock"
+run_file="${run_dir}/${class}.lock"
 
 # unix command line like booleans
 
@@ -73,7 +84,12 @@ else
     if [ "$hasterm" -eq "$b_true" ]; then
         exec tmux-nvim "$@"
     else
-        $term_cmd -e tmux-nvim "$@"
+        if [ -n "$use_class" ]; then
+            c="$use_class"
+            $term_cmd -name "$c" -T "$c" -e tmux-nvim --session-id "$c" "$@"
+        else
+            $term_cmd -e tmux-nvim "$@"
+        fi
     fi
     cleanup
 fi
