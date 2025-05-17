@@ -47,6 +47,20 @@ case "$1" in
         class="$1"
         shift
         ;;
+    help|-h|--help)
+        printf '%s\n\t%s\n' "${myname}:" \
+                            "nvim terminal wrapper"
+        printf '%s\n\t%s\n' "Usage:" \
+                            "${myname} -h | [ --class NAME ] [ nvim flags and files ]"
+        printf '%s\n\t%s\n' "    -h" \
+                            "print out this help message, 'help' and '--help' supported"
+        printf '%s\n\t%s\n\t%s%s\n' \
+                            "    --class NAME" \
+                            "sets terminal '-name' and '-T' flags to NAME, sets tmux-nvim" \
+                            "--session-id to NAME, sets runfile as " \
+                            "'/var/run/user/\$ID/gnvim/NAME.lock'"
+        exit 0
+        ;;
 esac
 
 run_dir="/var/run/user/${UserID}/gnvim"
