@@ -31,6 +31,10 @@ behaviour as an xterm and to support the following flags:
 
 Both gnvim and tmux-nvim will generate a default config upon first run.
 
+### help output
+
+The 3 scripts support the `-h` flag to show help messages, consult them before using.
+
 ### vim-anywhere
 
 Decided to roll out my own vim-anywhere implementation inspired on the original one with quite some
