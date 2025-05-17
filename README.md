@@ -19,11 +19,17 @@ make install
 By default the script will use the `x-terminal-emulator` program, which is a debianism, usually a
 symlink pointing to an appropriate wrapper script that does the work of normalizing the command line
 to provide scripts an interface that is compatible with the common [xterm](https://manpages.debian.org/unstable/xterm/xterm.1.en.html)
-parameter flags and behaviours for example the [gnome-terminal.wrapper](https://sources.debian.org/src/gnome-terminal/3.56.0-1/debian/gnome-terminal.wrapper/)
-as such the `gnvim` script expects your terminal/wrapper to support the `-e` parameter to run
-the `tmux-nvim` script.
+parameter flags and behaviours for example the [gnome-terminal.wrapper](https://sources.debian.org/src/gnome-terminal/3.56.1-1/debian/gnome-terminal.wrapper/)
+as such the `gnvim` script expects x-terminal-emulator to exist, have the same argument handling
+behaviour as an xterm and to support the following flags:
 
-Both scripts will generate a default config upon first run.
+|flag|use|
+|----|---|
+|-e|execute command|
+|-name|change terminal class or profile, set the WM_CLASS(STRING)|
+|-T|change terminal title, set the WM_NAME(STRING)|
+
+Both gnvim and tmux-nvim will generate a default config upon first run.
 
 ### vim-anywhere
 
