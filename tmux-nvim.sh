@@ -31,6 +31,8 @@ s_id="${s_id}"
 __HEREDOC__
 fi
 
+myname="${0##*/}"
+
 ID=""
 use_id=""
 case "$1" in
@@ -38,6 +40,17 @@ case "$1" in
         shift
         use_id="$1"
         shift
+        ;;
+    help|-h|--help)
+        printf '%s\n\t%s\n' "${myname}:" \
+                            "nvim tmux wrapper"
+        printf '%s\n\t%s\n' "Usage:" \
+                            "${myname} -h | [ --session-id NAME ] [ nvim flags and files ]"
+        printf '%s\n\t%s\n' "    -h" \
+                            "print out this help message, 'help' and '--help' supported"
+        printf '%s\n\t%s\n' "    --session-id NAME" \
+                            "tmux session name, has precedence over config specified one"
+        exit 0
         ;;
 esac
 
