@@ -29,10 +29,23 @@ type_file () {
     esac
 }
 
+myname="${0##*/}"
+
 case "$1" in
     -c|clipboard)
         shift
         clipboard_to_file
+        ;;
+    help|-h|--help)
+        printf '%s\n\t%s\n' "${myname}:" \
+                            "nvim window from anywhere"
+        printf '%s\n\t%s\n' "Usage:" \
+                            "${myname} -h | [ -c ]"
+        printf '%s\n\t%s\n' "    -h" \
+                            "print out this help message, 'help' and '--help' supported"
+        printf '%s\n\t%s\n' "    -c" \
+                            "copy clipboard contents to vim-anywhere tmp file"
+        exit 0
         ;;
 esac
 
