@@ -19,12 +19,14 @@ clipboard_to_file () {
 }
 
 type_file () {
+    # delay in milliseconds
+    d_time="6"
     case "$XDG_SESSION_TYPE" in
         x11)
-            xdotool type "$(cat $TMP_FILE)"
+            xdotool type --delay "$d_time" "$(cat $TMP_FILE)"
             ;;
         wayland)
-            wtype "$(cat $TMP_FILE)"
+            wtype -d "$d_time" "$(cat $TMP_FILE)"
             ;;
     esac
 }
