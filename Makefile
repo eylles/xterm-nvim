@@ -38,4 +38,4 @@ uninstall:
 	rm -vf $(DESK_LOC)/gnvim.desktop
 
 clean:
-	rm -v gnvim tmux-nvim vim-anywhere
+	rm -vf gnvim tmux-nvim vim-anywhere
