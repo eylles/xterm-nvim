@@ -100,7 +100,7 @@ else
     else
         if [ -n "$use_class" ]; then
             c="$use_class"
-            $term_cmd -name "$c" -T "$c" -e tmux-nvim --session-id "$c" "$@"
+            $term_cmd -name "$c" -title "$c" -e tmux-nvim --session-id "$c" "$@"
         else
             $term_cmd -e tmux-nvim "$@"
         fi

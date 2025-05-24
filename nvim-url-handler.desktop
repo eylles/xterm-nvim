@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Neovim URL Handler
+Exec=nvim-url-handler %u
+Type=Application
+Icon=nvim
+NoDisplay=true
+MimeType=x-scheme-handler/nvim;
