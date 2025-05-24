@@ -56,8 +56,8 @@ In addition to the previous requirements you will need these:
 
 ### nvim-url-handler
 
-This provides support for the yet to be officialized `nvim://` uri schema, at the time this does
-provide support for the proposal schema from [neovim #34102](https://github.com/neovim/neovim/issues/34102)
+This provides support for the yet to be officialized `nvim://` uri schema from:
+[neovim #34102](https://github.com/neovim/neovim/issues/34102)
 
 The script in addition to coreutils requires a python interpreter for uri decoding and programs
-`xdg-utils` from `xdg-mime` and `update-desktop-database` from `desktop-file-utils`
+`xdg-mime` from `xdg-utils` and `update-desktop-database` from `desktop-file-utils`
