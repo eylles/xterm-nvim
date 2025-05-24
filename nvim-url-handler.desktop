@@ -4,4 +4,4 @@ Exec=nvim-url-handler %u
 Type=Application
 Icon=nvim
 NoDisplay=true
-MimeType=x-scheme-handler/nvim;
+MimeType=x-scheme-handler/nvim;x-scheme-handler/mvim;x-scheme-handler/vim;

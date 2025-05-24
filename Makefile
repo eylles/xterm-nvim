@@ -35,6 +35,8 @@ install-desktop:
 	cp -f gnvim.desktop $(DESK_LOC)/
 	cp -f nvim-url-handler.desktop $(DESK_LOC)/
 	xdg-mime default nvim-url-handler.desktop x-scheme-handler/nvim
+	xdg-mime default nvim-url-handler.desktop x-scheme-handler/mvim
+	xdg-mime default nvim-url-handler.desktop x-scheme-handler/vim
 	update-desktop-database $(DESK_LOC)
 
 install-all: install install-desktop

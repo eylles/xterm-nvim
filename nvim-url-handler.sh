@@ -17,10 +17,14 @@ case "$uri" in
         ;;
     *)
         line="${uri##nvim://open?file=*}"
+        line="${uri##mvim://open?file=*}"
+        line="${uri##vim://open?file=*}"
         ;;
 esac
 line="${line:-1}"
 uri="${uri##nvim://open?file=}"
+uri="${uri##mvim://open?file=}"
+uri="${uri##vim://open?file=}"
 uri="${uri%%&line=*}"
 file=$(uridecode "${uri}")
 
