@@ -28,24 +28,24 @@ case "$uri" in
         line="${uri##*&line=}"
         ;;
     *)
-        line="${uri##*vim://open?file=*}"
-        line="${uri##*vim://open?url=*}"
-        line="${uri##*vim://open?uri=*}"
+        line="${uri##*://open?file=*}"
+        line="${uri##*://open?url=*}"
+        line="${uri##*://open?uri=*}"
 
-        line="${uri##*vim://open/?file=*}"
-        line="${uri##*vim://open/?url=*}"
-        line="${uri##*vim://open/?uri=*}"
+        line="${uri##*://open/?file=*}"
+        line="${uri##*://open/?url=*}"
+        line="${uri##*://open/?uri=*}"
         ;;
 esac
 line="${line:-1}"
 
-uri="${uri##*vim://open?file=}"
-uri="${uri##*vim://open?url=}"
-uri="${uri##*vim://open?uri=}"
+uri="${uri##*://open?file=}"
+uri="${uri##*://open?url=}"
+uri="${uri##*://open?uri=}"
 
-uri="${uri##*vim://open/?file=}"
-uri="${uri##*vim://open/?url=}"
-uri="${uri##*vim://open/?uri=}"
+uri="${uri##*://open/?file=}"
+uri="${uri##*://open/?url=}"
+uri="${uri##*://open/?uri=}"
 
 
 uri="${uri%%&line=*}"
