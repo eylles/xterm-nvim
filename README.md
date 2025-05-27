@@ -8,7 +8,7 @@ A pair of shell wrappers with tmux to provide a sessioned "tabbed" (neo)vim clie
 ## install
 
 ```sh
-make install-all
+make clean install-all
 ```
 
 
@@ -61,3 +61,10 @@ This provides support for the yet to be officialized `nvim://` uri schema from:
 
 The script in addition to coreutils requires a python interpreter for uri decoding and programs
 `xdg-mime` from `xdg-utils` and `update-desktop-database` from `desktop-file-utils`
+
+You can modify which uri schemes will be handled by the script at install time, just edit the
+config.mk file then install as normal, for example:
+```sh
+URI_SCHEMES = nvim vim editor
+```
+to add support for a generic editor uri scheme in the spirit of debian.

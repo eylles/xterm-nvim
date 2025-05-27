@@ -3,6 +3,7 @@ PREFIX = ${HOME}/.local
 BIN_LOC = $(DESTDIR)${PREFIX}/bin
 DESK_LOC = $(DESTDIR)$(PREFIX)/share/applications
 .PHONY: all install uninstall clean
+URI_SCHEMES = nvim vim
 
 all: gnvim tmux-nvim nvim-url-handler vim-anywhere
 
@@ -14,6 +15,12 @@ tmux-nvim:
 
 nvim-url-handler:
 	cp nvim-url-handler.sh nvim-url-handler
+
+nvim-url-handler.desktop:
+	cp nvim-url-handler.desktop.in nvim-url-handler.desktop
+	for scheme in $(URI_SCHEMES); do \
+		sed -i "/^MimeType=/ s/$$/x-scheme-handler\/$${scheme};/" nvim-url-handler.desktop; \
+	done
 
 vim-anywhere:
 	cp vim-anywhere.sh vim-anywhere
@@ -29,14 +36,14 @@ install: all
 	cp -vf nvim-url-handler $(BIN_LOC)/
 	cp -vf vim-anywhere $(BIN_LOC)/
 
-install-desktop:
+install-desktop: nvim-url-handler.desktop
 	@echo "INSTALL gnvim.desktop"
 	mkdir -p $(DESK_LOC)
 	cp -f gnvim.desktop $(DESK_LOC)/
 	cp -f nvim-url-handler.desktop $(DESK_LOC)/
-	xdg-mime default nvim-url-handler.desktop x-scheme-handler/nvim
-	xdg-mime default nvim-url-handler.desktop x-scheme-handler/mvim
-	xdg-mime default nvim-url-handler.desktop x-scheme-handler/vim
+	for scheme in $(URI_SCHEMES); do \
+		xdg-mime default nvim-url-handler.desktop "x-scheme-handler/$${scheme}"; \
+	done
 	update-desktop-database $(DESK_LOC)
 
 install-all: install install-desktop
@@ -49,4 +56,4 @@ uninstall:
 	rm -vf $(DESK_LOC)/nvim-url-handler.desktop
 
 clean:
-	rm -vf gnvim tmux-nvim nvim-url-handler vim-anywhere
+	rm -vf gnvim tmux-nvim nvim-url-handler vim-anywhere nvim-url-handler.desktop
