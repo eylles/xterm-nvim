@@ -9,6 +9,20 @@ for arg in argv[1:]:
 ___HEREDOC
 }
 
+case "$1" in
+    help|h|-h|--help)
+        myname="${0##*/}"
+        printf '%s\n\t%s\n' "${myname}:" "nvim uri scheme handler"
+        printf '\n'
+        printf '%s\n' "this script is not intended to be ran directly by the user but rather"
+        printf '%s\n' "to be called by it's associated desktop file, ${myname}.desktop when"
+        printf '%s\n' "some program requests to handle the associated uri scheme, by default:"
+        printf '%s\n' "    nvim://"
+        printf '%s\n' "    vim://"
+        exit 0
+        ;;
+esac
+
 # Parse the nvim:// URL (e.g. nvim://open?file=/path/to/file&line=123)
 
 # URI can come in one of the following forms:
