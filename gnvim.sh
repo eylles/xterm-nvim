@@ -1,6 +1,8 @@
 #!/bin/sh
 
 term_cmd="x-terminal-emulator"
+no_tmux=""
+nv_cmd="/usr/bin/nvim"
 
 config_dir="${XDG_CONFIG_HOME:-${HOME}/.config}/gnvim"
 config_file="${config_dir}/configrc"
@@ -24,6 +26,10 @@ nv_cmd="/usr/bin/nvim"
 
 # tmux session id
 s_id="nvim"
+
+# do not use tmux for regular operation
+# setting this to anything will take effect
+no_tmux=""
 __HEREDOC__
 fi
 
@@ -63,8 +69,9 @@ case "$1" in
         ;;
 esac
 
-run_dir="/var/run/user/${UserID}/gnvim"
+run_dir="/var/run/user/${UserID}/${class}"
 run_file="${run_dir}/${class}.lock"
+p_file="${run_dir}/${class}.pipe"
 
 # unix command line like booleans
 
@@ -96,13 +103,26 @@ if [ ! -f "$run_file" ]; then
     exit 1
 else
     if [ "$hasterm" -eq "$b_true" ]; then
-        exec tmux-nvim "$@"
-    else
-        if [ -n "$use_class" ]; then
-            c="$use_class"
-            $term_cmd -name "$c" -title "$c" -e tmux-nvim --session-id "$c" "$@"
+        if [ -z "$no_tmux" ]; then
+            exec tmux-nvim "$@"
         else
-            $term_cmd -e tmux-nvim "$@"
+            exec nvim --server "$p_file" --remote-send "<C-\\><C-N>:tabedit ${*}<CR>"
+        fi
+    else
+        if [ -z "$no_tmux" ]; then
+            if [ -n "$use_class" ]; then
+                c="$use_class"
+                $term_cmd -name "$c" -title "$c" -e tmux-nvim --session-id "$c" "$@"
+            else
+                $term_cmd -name "$class" -e tmux-nvim "$@"
+            fi
+        else
+            if [ -n "$use_class" ]; then
+                c="$use_class"
+                $term_cmd -name "$c" -title "$c" -e $nv_cmd --listen "$p_file" "$@"
+            else
+                $term_cmd -name "$class" -e nv_cmd --listen "$p_file" "$@"
+            fi
         fi
     fi
     cleanup

@@ -1,6 +1,6 @@
 # xterm-nvim
 
-A pair of shell wrappers with tmux to provide a sessioned "tabbed" (neo)vim client
+A shell wrappers that provide a sessioned (neo)vim client
 
 <img src="./Screenshot.png">
 
@@ -38,7 +38,17 @@ Both gnvim and tmux-nvim will generate a default config upon first run.
 
 ### help output
 
-The 3 scripts support the `-h` flag to show help messages, consult them before using.
+The 4 scripts support the `-h` flag to show help messages, consult them before using, the scripts
+that have a config file (gnvim, tmux-nvim) will generate the default config when a config file does
+not exist, even when run with the -h option.
+
+Pro gamer tip: use this to your advantage.
+
+### gnvim
+
+The script jumping through the hoops to wrap the `x-terminal-emulator`, by default it will want to
+use tmux via the `tmux-nvim` wrapper, but it can also work without tmux, just enable the option in
+the config file.
 
 ### vim-anywhere
 
