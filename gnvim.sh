@@ -56,6 +56,7 @@ case "$1" in
     help|-h|--help)
         printf '%s\n\t%s\n' "${myname}:" \
                             "nvim terminal wrapper"
+        printf '%s\n\t%s\n' "Version:" "@VERSION@"
         printf '%s\n\t%s\n' "Usage:" \
                             "${myname} -h | [ --class NAME ] [ nvim flags and files ]"
         printf '%s\n\t%s\n' "    -h" \

@@ -4,17 +4,21 @@ BIN_LOC = $(DESTDIR)${PREFIX}/bin
 DESK_LOC = $(DESTDIR)$(PREFIX)/share/applications
 .PHONY: all install uninstall clean
 URI_SCHEMES = nvim vim
+VERSION = 0.0.0
 
 all: gnvim tmux-nvim nvim-url-handler vim-anywhere
 
 gnvim:
-	cp gnvim.sh gnvim
+	sed "s|@VERSION@|$(VERSION)|" gnvim.sh > gnvim
+	chmod 755 gnvim
 
 tmux-nvim:
-	cp tmux-nvim.sh tmux-nvim
+	sed "s|@VERSION@|$(VERSION)|" tmux-nvim.sh > tmux-nvim
+	chmod 755 tmux-nvim
 
 nvim-url-handler:
-	cp nvim-url-handler.sh nvim-url-handler
+	sed "s|@VERSION@|$(VERSION)|" nvim-url-handler.sh > nvim-url-handler
+	chmod 755 nvim-url-handler
 
 nvim-url-handler.desktop:
 	cp nvim-url-handler.desktop.in nvim-url-handler.desktop
@@ -23,13 +27,10 @@ nvim-url-handler.desktop:
 	done
 
 vim-anywhere:
-	cp vim-anywhere.sh vim-anywhere
+	sed "s|@VERSION@|$(VERSION)|" vim-anywhere.sh > vim-anywhere
+	chmod 755 vim-anywhere
 
 install: all
-	chmod 755 gnvim
-	chmod 755 tmux-nvim
-	chmod 755 nvim-url-handler
-	chmod 755 vim-anywhere
 	mkdir -p $(BIN_LOC)
 	cp -vf gnvim $(BIN_LOC)/
 	cp -vf tmux-nvim $(BIN_LOC)/

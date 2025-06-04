@@ -13,6 +13,7 @@ case "$1" in
     help|h|-h|--help)
         myname="${0##*/}"
         printf '%s\n\t%s\n' "${myname}:" "nvim uri scheme handler"
+        printf '%s\n\t%s\n' "Version:" "@VERSION@"
         printf '\n'
         printf '%s\n' "this script is not intended to be ran directly by the user but rather"
         printf '%s\n' "to be called by it's associated desktop file, ${myname}.desktop when"

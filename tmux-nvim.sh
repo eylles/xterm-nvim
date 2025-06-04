@@ -44,6 +44,7 @@ case "$1" in
     help|-h|--help)
         printf '%s\n\t%s\n' "${myname}:" \
                             "nvim tmux wrapper"
+        printf '%s\n\t%s\n' "Version:" "@VERSION@"
         printf '%s\n\t%s\n' "Usage:" \
                             "${myname} -h | [ --session-id NAME ] [ nvim flags and files ]"
         printf '%s\n\t%s\n' "    -h" \
