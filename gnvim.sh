@@ -83,9 +83,27 @@ b_true=0
 # value: 1
 b_false=1
 
+# check if directory is empty
+# return type: int
+# return values:
+#     empty     b_true
+#     non empty b_false
+# taken from:
+#     https://superuser.com/questions/352289/bash-scripting-test-for-empty-directory/830902#830902
+is_empty() {
+    test -e "$1/"* 2>/dev/null
+    case $? in
+        1)   return "$b_true" ;;
+        *)   return "$b_false" ;;
+    esac
+}
+
 cleanup() {
     if [ -r "$run_file" ]; then
         rm "$run_file" 2>/dev/null
+    fi
+    if is_empty "$run_dir"; then
+        rmdir "$run_dir" 2>/dev/null
     fi
 }
 
