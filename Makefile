@@ -6,6 +6,8 @@ DESK_LOC = $(DESTDIR)$(PREFIX)/share/applications
 URI_SCHEMES = nvim vim
 VERSION = 0.0.0
 
+include config.mk
+
 all: gnvim tmux-nvim nvim-url-handler vim-anywhere
 
 gnvim:
