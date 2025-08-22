@@ -84,7 +84,9 @@ b_true=0
 b_false=1
 
 cleanup() {
-    rm "$run_file"
+    if [ -r "$run_file" ]; then
+        rm "$run_file" 2>/dev/null
+    fi
 }
 
 trap cleanup EXIT
