@@ -146,5 +146,4 @@ else
             fi
         fi
     fi
-    cleanup
 fi
