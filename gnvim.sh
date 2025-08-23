@@ -14,7 +14,7 @@ else
     if [ ! -d "$config_dir" ]; then
         mkdir -p "$config_dir"
     fi
-    cat << __HEREDOC__ >> "$config_file"
+    cat << __HEREDOC__ > "$config_file"
 # vim: ft=sh
 # gnvim wrapper config file
 
