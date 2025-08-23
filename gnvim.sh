@@ -142,7 +142,7 @@ else
                 c="$use_class"
                 $term_cmd -name "$c" -title "$c" -e $nv_cmd --listen "$p_file" "$@"
             else
-                $term_cmd -name "$class" -e nv_cmd --listen "$p_file" "$@"
+                $term_cmd -name "$class" -e $nv_cmd --listen "$p_file" "$@"
             fi
         fi
     fi
