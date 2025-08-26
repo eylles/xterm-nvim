@@ -55,12 +55,6 @@ case "$1" in
         ;;
 esac
 
-if [ "$#" -gt 0 ]; then
-    vimcmd="$nv_cmd ${*}"
-else
-    vimcmd="$nv_cmd"
-fi
-
 if [ -z "$TMUX" ] ;then
     # id of session
     ID=$(tmux ls | grep "$s_id" | cut -d: -f1)
@@ -71,11 +65,11 @@ if [ -z "$TMUX" ] ;then
         else
             ID="$s_id"
         fi
-        tmux new-session -s "$ID" "${vimcmd}" \; attach
+        tmux new-session -s "$ID" "${nv_cmd}" "$@" \; attach
     else
         # attach to existing
         tmux attach-session -t "$ID"
         # new "tab"
-        tmux new-window "${vimcmd}"
+        tmux new-window "${nv_cmd}" "$@"
     fi
 fi
