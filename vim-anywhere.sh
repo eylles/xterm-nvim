@@ -52,7 +52,7 @@ case "$1" in
         ;;
 esac
 
-gnvim "--class" "GVim" "$vimopts" "$TMP_FILE"
+gnvim "--class" "GVim-Anywhere" "$vimopts" "$TMP_FILE"
 
 # xclip -selection clipboard "$TMP_FILE"
 
