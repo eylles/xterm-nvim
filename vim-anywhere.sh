@@ -1,8 +1,7 @@
 #!/bin/sh
 
 TMP_FILE="/tmp/vim-anywhere"
-: > "$TMP_FILE"
-chmod 600 "$TMP_FILE"
+lockfile="/tmp/vim-anywhere.lock"
 
 # start vim in insert mode
 vimopts="+star"
@@ -32,6 +31,13 @@ type_file () {
 }
 
 myname="${0##*/}"
+mypid="${$}"
+
+if [ -f "$lockfile" ]; then
+    exit 1
+else
+    printf '%s\n' "$mypid" > "$lockfile"
+fi
 
 case "$1" in
     -c|clipboard)
@@ -54,10 +60,8 @@ esac
 
 gnvim "--class" "GVim-Anywhere" "$vimopts" "$TMP_FILE"
 
-# xclip -selection clipboard "$TMP_FILE"
-
 # yeh some delay for your window to recover focus...
 sleep 0.6
 type_file
 
-rm "$TMP_FILE"
+rm -f "$TMP_FILE" "$lockfile"
