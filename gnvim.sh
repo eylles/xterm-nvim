@@ -45,11 +45,9 @@ else
 fi
 
 class="gnvim"
-use_class=""
 case "$1" in
-    --class)
+    class|-c|--class)
         shift
-        use_class="$1"
         class="$1"
         shift
         ;;
@@ -65,7 +63,7 @@ case "$1" in
                             "    --class NAME" \
                             "sets terminal '-name' and '-T' flags to NAME, sets tmux-nvim" \
                             "--session-id to NAME, sets runfile as " \
-                            "'/var/run/user/\$ID/gnvim/NAME.lock'"
+                            "'/var/run/user/ID/NAME/NAME.lock'"
         exit 0
         ;;
 esac
@@ -122,28 +120,17 @@ fi
 
 if [ ! -f "$run_file" ]; then
     exit 1
-else
-    if [ "$hasterm" -eq "$b_true" ]; then
-        if [ -z "$no_tmux" ]; then
-            exec tmux-nvim "$@"
-        else
-            exec nvim --server "$p_file" --remote-send "<C-\\><C-N>:tabedit ${*}<CR>"
-        fi
+fi
+if [ "$hasterm" -eq "$b_true" ]; then
+    if [ -z "$no_tmux" ]; then
+        exec tmux-nvim --session-id "$class" "$@"
     else
-        if [ -z "$no_tmux" ]; then
-            if [ -n "$use_class" ]; then
-                c="$use_class"
-                $term_cmd -name "$c" -title "$c" -e tmux-nvim --session-id "$c" "$@"
-            else
-                $term_cmd -name "$class" -e tmux-nvim "$@"
-            fi
-        else
-            if [ -n "$use_class" ]; then
-                c="$use_class"
-                $term_cmd -name "$c" -title "$c" -e $nv_cmd --listen "$p_file" "$@"
-            else
-                $term_cmd -name "$class" -e $nv_cmd --listen "$p_file" "$@"
-            fi
-        fi
+        exec nvim --server "$p_file" --remote-send "<C-\\><C-N>:tabedit ${*}<CR>"
+    fi
+else
+    if [ -z "$no_tmux" ]; then
+        $term_cmd -name "$class" -title "$class" -e tmux-nvim --session-id "$class" "$@"
+    else
+        $term_cmd -name "$class" -title "$class" -e $nv_cmd --listen "$p_file" "$@"
     fi
 fi
