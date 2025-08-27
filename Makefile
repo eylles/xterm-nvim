@@ -53,8 +53,8 @@ install-all: install install-desktop
 
 uninstall:
 	rm -vf $(BIN_LOC)/gnvim
-	rm -vf $(LIB_LOC)/tmux-nvim
-	rm -vf $(LIB_LOC)/vim-anywhere
+	rm -vf $(BIN_LOC)/tmux-nvim
+	rm -vf $(BIN_LOC)/vim-anywhere
 	rm -vf $(DESK_LOC)/gnvim.desktop
 	rm -vf $(DESK_LOC)/nvim-url-handler.desktop
 
