@@ -33,12 +33,11 @@ fi
 
 myname="${0##*/}"
 
-ID=""
-use_id=""
+ID="$s_id"
 case "$1" in
-    --session-id)
+    id|-s|--session-id)
         shift
-        use_id="$1"
+        ID="$1"
         shift
         ;;
     help|-h|--help)
@@ -56,16 +55,9 @@ case "$1" in
 esac
 
 if [ -z "$TMUX" ] ;then
-    # id of session
-    ID=$(tmux ls | grep "$s_id" | cut -d: -f1)
-    if [ -z "$ID" ] ;then
-        # if not existing, create one
-        if [ -n "$use_id" ]; then
-            ID="$use_id"
-        else
-            ID="$s_id"
-        fi
-        tmux new-session -s "$ID" "${nv_cmd}" "$@" \; attach
+    if ! tmux has-session -t "$ID" 2>/dev/null ;then
+        # create session
+        tmux new-session -s "$ID" "${nv_cmd}" "$@"
     else
         # attach to existing
         tmux attach-session -t "$ID"
