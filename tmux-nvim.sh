@@ -59,9 +59,7 @@ if [ -z "$TMUX" ] ;then
         # create session
         tmux new-session -s "$ID" "${nv_cmd}" "$@"
     else
-        # attach to existing
-        tmux attach-session -t "$ID"
-        # new "tab"
-        tmux new-window "${nv_cmd}" "$@"
+        # new "tab" on existing
+        tmux new-window -t "$ID" "${nv_cmd}" "$@"
     fi
 fi
