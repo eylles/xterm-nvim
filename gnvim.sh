@@ -3,6 +3,7 @@
 term_cmd="x-terminal-emulator"
 no_tmux=""
 nv_cmd="/usr/bin/nvim"
+class="gnvim"
 
 config_dir="${XDG_CONFIG_HOME:-${HOME}/.config}/gnvim"
 config_file="${config_dir}/configrc"
@@ -19,17 +20,17 @@ else
 # gnvim wrapper config file
 
 # terminal command
-term_cmd="x-terminal-emulator"
+term_cmd="${term_cmd}"
 
 # neovim command
-nv_cmd="/usr/bin/nvim"
+nv_cmd="${nv_cmd}"
 
-# tmux session id
-s_id="nvim"
+# gnvim class
+class="${class}"
 
 # do not use tmux for regular operation
 # setting this to anything will take effect
-no_tmux=""
+no_tmux="${no_tmux}"
 __HEREDOC__
 fi
 
@@ -44,7 +45,6 @@ else
   UserID="$UID"
 fi
 
-class="gnvim"
 case "$1" in
     class|-c|--class)
         shift

@@ -2,7 +2,7 @@
 
 # wrapper to launch neovim inside tmux
 
-s_id="nvim"
+class="nvim"
 
 nv_cmd="/usr/bin/nvim"
 
@@ -26,14 +26,14 @@ term_cmd="x-terminal-emulator"
 # neovim command
 nv_cmd="${nv_cmd}"
 
-# tmux session id
-s_id="${s_id}"
+# gnvim class
+class="${class}"
 __HEREDOC__
 fi
 
 myname="${0##*/}"
 
-ID="$s_id"
+ID="$class"
 case "$1" in
     id|-s|--session-id)
         shift
