@@ -9,6 +9,8 @@ for arg in argv[1:]:
 ___HEREDOC
 }
 
+schemes="@SCHEMES@"
+
 case "$1" in
     help|h|-h|--help)
         myname="${0##*/}"
@@ -17,9 +19,11 @@ case "$1" in
         printf '\n'
         printf '%s\n' "this script is not intended to be ran directly by the user but rather"
         printf '%s\n' "to be called by it's associated desktop file, ${myname}.desktop when"
-        printf '%s\n' "some program requests to handle the associated uri scheme, by default:"
-        printf '%s\n' "    nvim://"
-        printf '%s\n' "    vim://"
+        printf '%s\n' "some program requests to handle the associated uri scheme, the"
+        printf '%s\n' ".desktop file 'nvim-url-handler.desktop' is built to handle these schemes:"
+        for s in $schemes; do
+            printf '%s\n' "    ${s}://"
+        done
         exit 0
         ;;
 esac

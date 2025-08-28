@@ -19,7 +19,7 @@ tmux-nvim:
 	chmod 755 tmux-nvim
 
 nvim-url-handler:
-	sed "s|@VERSION@|$(VERSION)|" nvim-url-handler.sh > nvim-url-handler
+	sed "s|@VERSION@|$(VERSION)|;s|@SCHEMES@|$(URI_SCHEMES)|" nvim-url-handler.sh > nvim-url-handler
 	chmod 755 nvim-url-handler
 
 nvim-url-handler.desktop:
