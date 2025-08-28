@@ -47,7 +47,7 @@ case "$1" in
         printf '%s\n\t%s\n' "Usage:" \
                             "${myname} -h | [ --session-id NAME ] [ nvim flags and files ]"
         printf '%s\n\t%s\n' "    -h" \
-                            "print out this help message, 'help' and '--help' supported"
+                            "print out this help message, 'help' and '--help' are supported too"
         printf '%s\n\t%s\n' "    --session-id NAME" \
                             "tmux session name, has precedence over config specified one"
         exit 0

@@ -51,7 +51,7 @@ case "$1" in
         printf '%s\n\t%s\n' "Usage:" \
                             "${myname} -h | [ -c ]"
         printf '%s\n\t%s\n' "    -h" \
-                            "print out this help message, 'help' and '--help' supported"
+                            "print out this help message, 'help' and '--help' are supported too"
         printf '%s\n\t%s\n' "    -c" \
                             "copy clipboard contents to vim-anywhere tmp file"
         exit 0

@@ -58,7 +58,7 @@ case "$1" in
         printf '%s\n\t%s\n' "Usage:" \
                             "${myname} -h | [ --class NAME ] [ nvim flags and files ]"
         printf '%s\n\t%s\n' "    -h" \
-                            "print out this help message, 'help' and '--help' supported"
+                            "print out this help message, 'help' and '--help' are supported too"
         printf '%s\n\t%s\n\t%s%s\n' \
                             "    --class NAME" \
                             "sets terminal '-name' and '-T' flags to NAME, sets tmux-nvim" \
