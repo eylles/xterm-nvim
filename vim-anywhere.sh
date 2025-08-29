@@ -73,7 +73,20 @@ type_file () {
 myname="${0##*/}"
 mypid="${$}"
 
-if [ -f "$lockfile" ]; then
+is_instance () {
+    ps ax -o'pid=,cmd=' \
+        | sed 's/^ *//' \
+        | awk \
+            -v pid="$1" \
+            -v name="$myname" \
+            '
+                BEGIN { found = 0 }
+                $1 == pid && $0 ~ name { found = 1 }
+                END { if (!found) exit 1 }
+            '
+}
+
+if [ -f "$lockfile" ] && is_instance "$(head $lockfile)" ; then
     exit 1
 else
     printf '%s\n' "$mypid" > "$lockfile"
