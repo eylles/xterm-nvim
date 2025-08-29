@@ -1,6 +1,46 @@
 #!/bin/sh
 
-TMP_FILE="/tmp/vim-anywhere"
+behaviour="classic"
+
+TMP_DIR="/tmp/vim-anywhere"
+
+config_dir="${XDG_CONFIG_HOME:-${HOME}/.config}/vim-anywhere"
+config_file="${config_dir}/configrc"
+
+# loading the config here means the user can overwrite any of the functions
+if [ -f "$config_file" ]; then
+    . "$config_file"
+else
+    if [ ! -d "$config_dir" ]; then
+        mkdir -p "$config_dir"
+    fi
+    cat << __HEREDOC__ > "$config_file"
+# vim: ft=sh
+# vim anywhere config
+
+# vim anywhere behaviour: classic simple
+# classic: the behaviour of the classic vim anywhere script, a tmp dir is created and every
+#          instance of vim-anywhere creates a new file inside that directory.
+# simple:  a simpler behaviour, no special tmp dir is created, instead every time an instance of
+#          vim-anywhere runs a tmp file is created, once vim exits the tmp file is deleted.
+behaviour="${behaviour}"
+
+# the location for the tmp dir
+TMP_DIR="${TMP_DIR}"
+__HEREDOC__
+fi
+
+TMP_FILE=""
+
+case "$behaviour" in
+    classic)
+        TMP_FILE="${TMP_DIR}/doc-$(date +"%Y%m%d%H%M%S")"
+        ;;
+    simple)
+        TMP_FILE="${TMP_DIR}/doc"
+        ;;
+esac
+
 lockfile="/tmp/vim-anywhere.lock"
 
 # start vim in insert mode
@@ -39,6 +79,10 @@ else
     printf '%s\n' "$mypid" > "$lockfile"
 fi
 
+if [ ! -d "$TMP_DIR" ]; then
+    mkdir -p "$TMP_DIR"
+fi
+
 case "$1" in
     -c|clipboard)
         shift
@@ -64,4 +108,10 @@ gnvim "--class" "GVim-Anywhere" "$vimopts" "$TMP_FILE"
 sleep 0.6
 type_file
 
-rm -f "$TMP_FILE" "$lockfile"
+case "$behaviour" in
+    simple)
+        rm -f "$TMP_FILE"
+        ;;
+esac
+
+rm "$lockfile"
