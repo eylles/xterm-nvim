@@ -9,10 +9,7 @@ nv_cmd="/usr/bin/nvim"
 config_dir="${XDG_CONFIG_HOME:-${HOME}/.config}/gnvim"
 config_file="${config_dir}/configrc"
 
-# loading the config here means the user can overwrite any of the functions
-if [ -f "$config_file" ]; then
-    . "$config_file"
-else
+if [ ! -f "$config_file" ]; then
     if [ ! -d "$config_dir" ]; then
         mkdir -p "$config_dir"
     fi
@@ -34,6 +31,10 @@ class="${class}"
 no_tmux=""
 __HEREDOC__
 fi
+
+# loading the config here means the default config is already present and the user is not able to
+# overwrite anything defined after this point.
+. "$config_file"
 
 myname="${0##*/}"
 
