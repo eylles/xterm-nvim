@@ -1,0 +1,52 @@
+.TH NVIM-URL-HANDLER 1 nvim-url-handler\-@VERSION@
+.SH NAME
+nvim-url-handler \- nvim file uri scheme handler
+.SH SYNOPSIS
+.B nvim-url-handler
+.RB [ options ]
+.SH DESCRIPTION
+This program is a handler for the file open schema commonly used GUI and web programs to open files
+inside text editors via the "Open in Editor" action, this program is not intended to be ran directly
+by the user but rather indirectly through a browser or another program that can invoke calls to the
+x-schema-handler URL for a text editor to open a file in, uri schemas like the following are
+supported by this utility:
+
+    nvim://open?file=/path/to/file&line=123
+    nvim://open?url=file:///path/to/file&line=123
+    nvim://open?uri=file:///path/to/file&line=123
+
+    nvim://open/?file=/path/to/file&line=123
+    nvim://open/?url=file:///path/to/file&line=123
+    nvim://open/?uri=file:///path/to/file&line=123
+
+
+.P
+The installed .desktop file is built to handle the following schemas:
+@SCHEMES@
+
+Notice however that those are only the schema identifiers the .desktop file is invoking
+nvim-url-handler for, internally nvim-url-handler does not care what the identifier name before the
+.B ://open
+string may be, as it simply uses a glob to match any substring preceding the string, empty string
+included.
+
+.P
+As far as upstream neovim is concerned this feature is an add-on that may or may not be implemented
+through the nvim built in uri decoder, to follow the upstream status of url schema handler check:
+.IR https://github.com/neovim/neovim/issues/34102
+
+.SH OPTIONS
+.TP
+.B "help, \-h, \-\-help"
+Print brief usage information to standard output and exit.
+
+.SH AUTHOR
+.EX
+eylles                 <ed.ylles1997 at gmail.com>
+.EE
+.SH HOMEPAGE
+.TP
+Source code:
+.EE
+https://github.com/eylles/xterm-nvim
+.EX

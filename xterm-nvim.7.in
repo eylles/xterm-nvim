@@ -1,0 +1,50 @@
+.TH XTERM-NVIM 7 xterm-nvim\-@VERSION@
+.SH NAME
+xterm-nvim \- neovim terminal wrappers
+.SH DESCRIPTION
+You are reading the manual page for the
+.B xterm-nvim
+package, this package is a set of scripts that provide the functionality of "gnvim", ie a
+"non terminal" interface of neovim, that more cleanly integrates with a Desktop Environment than the
+terminal emulator neovim does, this package aims to correctly provide said integration for those
+that do prefer to use neovim inside a terminal emulator and are not fond nor prefer any of the
+existing neovim GUIs to the terminal experience but DO want the integration onto their Graphical
+User Interface for a more ergonomic User Experience.
+
+.SH CONTENTS
+.P
+The
+.B xtem-nvim
+package contains the following programs, all come with their own manual page.
+
+.TP
+.B gnvim (1)
+the general script that does the wrapping of starting the terminal window where neovim will exist
+in, by default will want to use the
+.B x-terminal-emulator
+program, a debianism interface that may be a symlink or wrapper.
+
+.TP
+.B tmux-nvim (1)
+a tmux sessioning wrapper, when gnvim is configured to use tmux this script will be used to open
+neovim instances inside the correct tmux session.
+
+.TP
+.B nvim-url-handler (1)
+a handler for xdg uri schemas that request files to be opened inside the text editor.
+
+.TP
+.B vim-anywhere (1)
+an implementation of the vim-anywhere script made to work with the gnvim implementation from this
+package, also includes more options that the classic script did not.
+
+.SH AUTHOR
+.EX
+eylles                 <ed.ylles1997 at gmail.com>
+.EE
+.SH HOMEPAGE
+.TP
+Source code:
+.EE
+https://github.com/eylles/xterm-nvim
+.EX

@@ -1,0 +1,69 @@
+.TH TMUX-NVIM 1 tmux-nvim\-@VERSION@
+.SH NAME
+tmux-nvim \- tmux wrapper for gnvim
+.SH SYNOPSIS
+.B tmux-nvim
+.RB [ options ]
+.IR file
+.SH DESCRIPTION
+This program is a wrapper that will search for a running tmux session with the name determined by
+$ID, if a session is found a new window is created inside such session, otherwise a new session will
+be created with the name from $ID
+
+.SH OPTIONS
+.TP
+.B "help, \-h, \-\-help"
+Print brief usage information to standard output and exit.
+.TP
+.B "id, \-s, \-\-session-id ID"
+sets the tmux session name.
+.SH CONFIGURATION
+.P
+The configuration of gnvim is located at:
+.B ${XDG_CONFIG_HOME:-${HOME}/.config}/gnvim/configrc
+
+.P
+To see the location of the configuration file and generating it if running for the first time, run
+tmux-nvim with the help flag
+
+.P
+The configuration defines the following options:
+
+.TP
+.B
+term_cmd
+the terminal command to use, should be able to support xterm's "-name", "-title" and "-e" options,
+by default the debianism
+.B x-terminal-emulator
+is used to ensure support of these options within debian and derivates.
+
+.TP
+.B
+nv_cmd
+the neovim command to use, by default
+.B /usr/bin/nvim
+is used, but can be set to any custom wrapper command the user chooses.
+
+.TP
+.B
+class
+the class for the gnvim instance and the value for the session id var $ID, the
+.B gnvim
+class is used by default.
+
+.TP
+.B
+no_tmux
+sets gnvim to not use tmux sessioning and instead manage the sessions with neovim's built in tabs,
+by default this is empty to use tmux-nvim
+
+.SH AUTHOR
+.EX
+eylles                 <ed.ylles1997 at gmail.com>
+.EE
+.SH HOMEPAGE
+.TP
+Source code:
+.EE
+https://github.com/eylles/xterm-nvim
+.EX

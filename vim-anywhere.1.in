@@ -1,0 +1,95 @@
+.TH VIM-ANYWHERE 1 vim-anywhere\-@VERSION@
+.SH NAME
+vim-anywhere \- nvim anywhere
+.SH SYNOPSIS
+.B vim-anywhere
+.RB [ options ]
+.SH DESCRIPTION
+A re-implementation of the vim-anywhere script from
+.IR https://github.com/cknadler/vim-anywhere
+
+This script aims to not just do some modernization to the vim-anywhere script but also to take the
+concept and make it compatible with the gnvim implementation from this package and provide some
+features that were suggested and pull requests even created but never adopted by the classic
+vim-anywhere, for example populating the tmp file with the contents of the clipboard, being able to
+change the location for the TMP_DIR, changing the type of the text file from plain text to something
+else via an extension string in the config, supporting wayland environments, start in insert mode,
+configurable delays for focus and per character typing, class name.
+
+Unlike the original vim-anywhere no assumptions about the user's environment are made beyond the use
+of neovim, therefore adding this program to be launched by a keybind is left completely onto the
+user to decide.
+
+.SH OPTIONS
+.TP
+.B "help, \-h, \-\-help"
+Print brief usage information to standard output and exit.
+.TP
+.B "clipboard, \-c, \-\-clipboard"
+copy current clipboard contents to $TMP_FILE
+
+.SH CONFIGURATION
+.P
+The configuration of gnvim is located at:
+.B ${XDG_CONFIG_HOME:-${HOME}/.config}/gnvim/configrc
+
+.P
+To see the location of the configuration file and generating it if running for the first time, run
+vim-anywhere with the help flag
+
+.P
+The configuration defines the following options:
+
+.TP
+.B
+behaviour
+vim anywhere behaviour, it can be classic or simple
+
+classic: the behaviour of the classic vim anywhere script, a tmp dir is created and every instance
+         of vim-anywhere creates a new file inside that directory.
+
+simple:  a simpler behaviour, the tmp dir is created and every time an instance of vim-anywhere runs
+         a tmp file with a static name is created, once vim exits the tmp file is deleted.
+
+.TP
+.B
+TMP_DIR
+the location for the tmp dir, by default the tmp dir is created at:
+.B /tmp/vim-anywhere
+with a simple mkdir, that is, expecting the dir can just be created there without issue.
+
+.TP
+.B
+DEF_FT
+default file type extension, no checking is done for this whatsoever, just pass your preferred file
+type extension for creating of the file, by default that is "txt" to create plain text files, but
+you may change it to whatever you want, like "md" for markdown or "py" for python, "c" for c,
+you get the idea, it may be useful for you to have support for some specific syntax.
+
+.TP
+.B
+class
+the class option for vim-anywhere, this is passed on to gnvim(1) which will set the terminal command
+class and title to this very same string, this should make it possible to add special rules for your
+window manager, given it has such functionality, to make the vim-anywhere terminal window into an
+"ontop" window with your desired dimensions and any other setting your window manager and compositor
+are able to apply based on the name title of the window alone.
+
+.TP
+.B
+insertmode_start
+this option controls werether or not to initiate the neovim instance of vim-anywhere in insert mode,
+leave this option empty to start in normal mode, write any text inside this to start in insert mode,
+whichever text is written is of no relevance as all that is checked is werether the variable is
+empty or not.
+
+.SH AUTHOR
+.EX
+eylles                 <ed.ylles1997 at gmail.com>
+.EE
+.SH HOMEPAGE
+.TP
+Source code:
+.EE
+https://github.com/eylles/xterm-nvim
+.EX

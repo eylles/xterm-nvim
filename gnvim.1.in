@@ -1,0 +1,99 @@
+.TH GNVIM 1 gnvim\-@VERSION@
+.SH NAME
+gnvim \- nvim terminal wrapper
+.SH SYNOPSIS
+.B gnvim
+.RB [ options ]
+.IR file
+.SH DESCRIPTION
+The program gnvim is a wrapper script to allow gvim like functionality for neovim along a terminal
+emulator, ie: when launched with or without files it will search for an instance of 'gnvim' by
+checking on the runfile, the runfile is typically located at
+.B /var/run/user/${UID}/${class}/${class}.lock
+after which gnvim either creates a new terminal window via the
+.B x-terminal-emulator
+command or simply hands out the file to the running instance that posses a terminal
+
+The actual handling of the file and arguments is done by an instance of neovim, either by itself
+listening to the p_file located at:
+.B /var/run/user/${UID}/${class}/${class}.pipe
+OR an instance of neovim running inside a tmux session started by
+.B tmux-nvim
+(1)
+
+The default terminal emulator to handle the terminal window is the
+.B x-terminal-emulator
+interface, a debianism that may be a wrapper or a symlink to a terminal emulator binary, this is
+because for the intended functionality of this script the terminal emulator should be compatible
+with the following xterm(1) options: -title, -name, -e
+
+Proper handling of the options and a compatible behaviour is expected however not all terminal are
+compatible out of the box, debian does by policy provide wrappers which then get symlinked onto the
+x-terminal-emulator, an example would be the gnome-terminal.wrapper from:
+.IR https://sources.debian.org/src/gnome-terminal/3.56.2-2/debian/gnome-terminal.wrapper
+
+To consult which terminal emulators in debian currently provide the x-terminal-emulator interface
+either by natively supporting the xterm options or through a wrapper check in:
+.IR https://packages.debian.org/sid/x-terminal-emulator
+
+If your preferred terminal emulator does not appear in the list you can provide your own wrapper
+script and either link it into x-terminal-emulator or simply specify that script as the terminal
+command to call inside the configuration file.
+
+.SH OPTIONS
+.TP
+.B "help, \-h, \-\-help"
+Print brief usage information to standard output and exit.
+.TP
+.B "class, \-c, \-\-class CLASS"
+Run instance with class CLASS, all the variables ${class} mentioned above become this name.
+.SH CONFIGURATION
+.P
+The configuration of gnvim is located at:
+.B ${XDG_CONFIG_HOME:-${HOME}/.config}/gnvim/configrc
+
+.P
+To see the location of the configuration file and generating it if running for the first time, run
+gnvim with the help flag
+
+.P
+The configuration defines the following options:
+
+.TP
+.B
+term_cmd
+the terminal command to use, should be able to support xterm's "-name", "-title" and "-e" options,
+by default the debianism
+.B x-terminal-emulator
+is used to ensure support of these options within debian and derivates.
+
+.TP
+.B
+nv_cmd
+the neovim command to use, by default
+.B /usr/bin/nvim
+is used, but can be set to any custom wrapper command the user chooses.
+
+.TP
+.B
+class
+the class for the gnvim instance, the
+.B gnvim
+class is used by default.
+
+.TP
+.B
+no_tmux
+sets gnvim to not use tmux sessioning and instead manage the sessions with neovim's built in tabs,
+by default this is empty to use tmux-nvim
+
+.SH AUTHOR
+.EX
+eylles                 <ed.ylles1997 at gmail.com>
+.EE
+.SH HOMEPAGE
+.TP
+Source code:
+.EE
+https://github.com/eylles/xterm-nvim
+.EX

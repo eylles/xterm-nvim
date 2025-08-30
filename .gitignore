@@ -3,3 +3,8 @@ tmux-nvim
 nvim-url-handler
 nvim-url-handler.desktop
 vim-anywhere
+gnvim.1
+tmux-nvim.1
+nvim-url-handler.1
+vim-anywhere.1
+xterm-nvim.7
