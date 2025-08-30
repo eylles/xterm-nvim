@@ -64,6 +64,8 @@ case "$1" in
                             "sets terminal '-name' and '-T' flags to NAME, sets tmux-nvim" \
                             "--session-id to NAME, sets runfile as " \
                             "'/var/run/user/ID/NAME/NAME.lock'"
+        printf '\n'
+        printf '%s\n\t%s\n' "Config:" "$config_file"
         exit 0
         ;;
 esac

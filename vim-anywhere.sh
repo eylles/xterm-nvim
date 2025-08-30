@@ -111,6 +111,8 @@ case "$1" in
                             "print out this help message, 'help' and '--help' are supported too"
         printf '%s\n\t%s\n' "    -c" \
                             "copy clipboard contents to vim-anywhere tmp file"
+        printf '\n'
+        printf '%s\n\t%s\n' "Config:" "$config_file"
         exit 0
         ;;
 esac

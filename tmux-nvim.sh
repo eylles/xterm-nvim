@@ -50,6 +50,8 @@ case "$1" in
                             "print out this help message, 'help' and '--help' are supported too"
         printf '%s\n\t%s\n' "    --session-id NAME" \
                             "tmux session name, has precedence over config specified one"
+        printf '\n'
+        printf '%s\n\t%s\n' "Config:" "$config_file"
         exit 0
         ;;
 esac
