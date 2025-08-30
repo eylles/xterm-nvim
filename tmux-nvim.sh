@@ -28,6 +28,10 @@ nv_cmd="${nv_cmd}"
 
 # gnvim class
 class="${class}"
+
+# do not use tmux for regular operation
+# setting this to anything will take effect
+no_tmux=""
 __HEREDOC__
 fi
 
