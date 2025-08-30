@@ -5,6 +5,10 @@ behaviour="classic"
 TMP_DIR="/tmp/vim-anywhere"
 DEF_FT="txt"
 
+# char type delay in milliseconds
+type_delay="6"
+focus_delay="0.6"
+
 config_dir="${XDG_CONFIG_HOME:-${HOME}/.config}/vim-anywhere"
 config_file="${config_dir}/configrc"
 
@@ -34,6 +38,17 @@ TMP_DIR="${TMP_DIR}"
 # you may change it to whatever you want, like "md" for markdown or "py" for python, "c" for c, you
 # get the idea.
 DEF_FT="${DEF_FT}"
+
+# delay in milliseconds between typing of characters, with the default of 6 milliseconds a word that
+# is 5 characters long will take 30 milliseconds to be typed out.
+type_delay="${type_delay}"
+
+# the delay in seconds between gnvim being closed to the contents of the tmp file being typed out,
+# this is the time you got to click into your desired text field window to ensure your text will be
+# typed out in the correct place, the "0.6" default gives you slightly more than half second to
+# react, also assumes that the sleep(1) utility in your system supports float values as all modern
+# core unix utilities implementations do nowadays.
+focus_delay="${focus_delay}"
 __HEREDOC__
 fi
 
@@ -65,14 +80,12 @@ clipboard_to_file () {
 }
 
 type_file () {
-    # delay in milliseconds
-    d_time="6"
     case "$XDG_SESSION_TYPE" in
         x11)
-            xdotool type --delay "$d_time" "$(cat $TMP_FILE)"
+            xdotool type --delay "$type_delay" "$(cat $TMP_FILE)"
             ;;
         wayland)
-            wtype -d "$d_time" "$(cat $TMP_FILE)"
+            wtype -d "$type_delay" "$(cat $TMP_FILE)"
             ;;
     esac
 }
@@ -127,7 +140,7 @@ esac
 gnvim "--class" "GVim-Anywhere" "$vimopts" "$TMP_FILE"
 
 # yeh some delay for your window to recover focus...
-sleep 0.6
+sleep "$focus_delay"
 type_file
 
 case "$behaviour" in
