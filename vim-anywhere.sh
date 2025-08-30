@@ -9,6 +9,8 @@ DEF_FT="txt"
 type_delay="6"
 focus_delay="0.6"
 
+class="GVim-Anywhere"
+
 config_dir="${XDG_CONFIG_HOME:-${HOME}/.config}/vim-anywhere"
 config_file="${config_dir}/configrc"
 
@@ -49,6 +51,13 @@ type_delay="${type_delay}"
 # react, also assumes that the sleep(1) utility in your system supports float values as all modern
 # core unix utilities implementations do nowadays.
 focus_delay="${focus_delay}"
+
+# the class option for vim-anywhere, this is passed on to gnvim(1) which will set the terminal
+# command class and title to this very same string, this should make it possible to add special
+# rules for your window manager, given it has such functionality, to make the vim-anywhere terminal
+# window into an "ontop" window with your desired dimensions and any other setting your window
+# manager and compositor are able to apply based on the name title of the window alone.
+class="${class}"
 __HEREDOC__
 fi
 
@@ -137,7 +146,7 @@ case "$1" in
         ;;
 esac
 
-gnvim "--class" "GVim-Anywhere" "$vimopts" "$TMP_FILE"
+gnvim "--class" "$class" "$vimopts" "$TMP_FILE"
 
 # yeh some delay for your window to recover focus...
 sleep "$focus_delay"
