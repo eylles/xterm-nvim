@@ -8,11 +8,19 @@ A shell wrappers that provide a sessioned (neo)vim client
 ## install
 
 ```sh
-make clean install-all
+make clean all install-all
 ```
 
 
 ## notes
+
+### dependencies
+
+- a POSIX compliant shell interpreter in /bin/sh (bash, dash and busybox ash can suffice)
+- coreutils (both the gnu and freebsd implementations are able to suffice)
+- neovim (should be obvious i hope)
+- tmux (optional)
+- x-terminal-emulator (or a wrapper for your favourite terminal)
 
 ### terminal wrapper
 
@@ -58,9 +66,18 @@ as by convenience with those you can set up rules in your window manager to to a
 terminal window as a floating window (if you use a tiling window manager) to be always on top, the
 name and class passed onto the vim anywhere terminal is `GVim`
 
-#### wayland support
+#### clipboard and typing
 
-In addition to the previous requirements you will need these:
+In addition to the previous requirements you will need the following programs for your environment,
+they are all available in the debian stable repos.
+
+For x11
+
+- [xclip](https://github.com/astrand/xclip)
+- [xdotool](https://github.com/jordansissel/xdotool)
+
+For wayland
+
 - [wl-clipboard](https://github.com/bugaevc/wl-clipboard)
 - [wtype](https://github.com/atx/wtype)
 
