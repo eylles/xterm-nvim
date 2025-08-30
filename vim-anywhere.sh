@@ -11,6 +11,8 @@ focus_delay="0.6"
 
 class="GVim-Anywhere"
 
+insertmode_start=""
+
 config_dir="${XDG_CONFIG_HOME:-${HOME}/.config}/vim-anywhere"
 config_file="${config_dir}/configrc"
 
@@ -58,6 +60,12 @@ focus_delay="${focus_delay}"
 # window into an "ontop" window with your desired dimensions and any other setting your window
 # manager and compositor are able to apply based on the name title of the window alone.
 class="${class}"
+
+# this option controls werether or not to initiate the neovim instance of vim-anywhere in insert
+# mode, leave this option empty to start in normal mode, write any text inside this to start in
+# insert mode, whichever text is written is of no relevance as all that is checked is werether the
+# variable is empty or not.
+insertmode_start="${insertmode_start}"
 __HEREDOC__
 fi
 
@@ -74,8 +82,11 @@ esac
 
 lockfile="/tmp/vim-anywhere.lock"
 
-# start vim in insert mode
-vimopts="+star"
+vimopts=""
+if [ -n "$insertmode_start" ]; then
+    # start vim in insert mode
+    vimopts="+star"
+fi
 
 clipboard_to_file () {
     case "$XDG_SESSION_TYPE" in
