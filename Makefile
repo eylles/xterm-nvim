@@ -5,7 +5,7 @@ MANPREFIX = $(DESTDIR)$(PREFIX)/share/man
 DESK_LOC = $(DESTDIR)$(PREFIX)/share/applications
 .PHONY: all install uninstall clean
 URI_SCHEMES = nvim vim
-VERSION = 0.0.0
+VERSION = 0.1.0
 
 include config.mk
 
