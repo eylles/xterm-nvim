@@ -3,6 +3,7 @@
 behaviour="classic"
 
 TMP_DIR="/tmp/vim-anywhere"
+DEF_FT="txt"
 
 config_dir="${XDG_CONFIG_HOME:-${HOME}/.config}/vim-anywhere"
 config_file="${config_dir}/configrc"
@@ -21,12 +22,18 @@ else
 # vim anywhere behaviour: classic simple
 # classic: the behaviour of the classic vim anywhere script, a tmp dir is created and every
 #          instance of vim-anywhere creates a new file inside that directory.
-# simple:  a simpler behaviour, no special tmp dir is created, instead every time an instance of
-#          vim-anywhere runs a tmp file is created, once vim exits the tmp file is deleted.
+# simple:  a simpler behaviour, every time an instance of vim-anywhere runs a tmp file is created
+#          with the same static name, once vim exits the tmp file is deleted.
 behaviour="${behaviour}"
 
 # the location for the tmp dir
 TMP_DIR="${TMP_DIR}"
+
+# default file type extension, we do no checking of this whatsoever, just pass your preferred file
+# type extension for creating of the file, by default that is "txt" to create plain text files, but
+# you may change it to whatever you want, like "md" for markdown or "py" for python, "c" for c, you
+# get the idea.
+DEF_FT="${DEF_FT}"
 __HEREDOC__
 fi
 
@@ -34,10 +41,10 @@ TMP_FILE=""
 
 case "$behaviour" in
     classic)
-        TMP_FILE="${TMP_DIR}/doc-$(date +"%Y%m%d%H%M%S")"
+        TMP_FILE="${TMP_DIR}/doc-$(date +"%Y%m%d%H%M%S").${DEF_FT}"
         ;;
     simple)
-        TMP_FILE="${TMP_DIR}/doc"
+        TMP_FILE="${TMP_DIR}/doc.${DEF_FT}"
         ;;
 esac
 
