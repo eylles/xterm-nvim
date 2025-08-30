@@ -104,7 +104,7 @@ if [ ! -d "$TMP_DIR" ]; then
 fi
 
 case "$1" in
-    -c|clipboard)
+    clipboard|-c|--clipboard)
         shift
         clipboard_to_file
         ;;
