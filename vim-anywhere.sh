@@ -162,9 +162,12 @@ esac
 # not try to open it as an argument that opens a nameless empty file
 gnvim "--class" "$class" $vimopts "$TMP_FILE"
 
-# yeh some delay for your window to recover focus...
-sleep "$focus_delay"
-type_file
+# don't even bother with the sleep and trying to type the TMP_FILE if it doesn't exist.
+if [ -f "$TMP_FILE" ]; then
+    # yeh some delay for your window to recover focus...
+    sleep "$focus_delay"
+    type_file
+fi
 
 case "$behaviour" in
     simple)
