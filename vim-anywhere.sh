@@ -158,7 +158,9 @@ case "$1" in
         ;;
 esac
 
-gnvim "--class" "$class" "$vimopts" "$TMP_FILE"
+# yes, vimopts without double quotes is intentional, that way if vimopts is an empty var gnvim will
+# not try to open it as an argument that opens a nameless empty file
+gnvim "--class" "$class" $vimopts "$TMP_FILE"
 
 # yeh some delay for your window to recover focus...
 sleep "$focus_delay"
