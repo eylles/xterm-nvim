@@ -71,7 +71,7 @@ case "$1" in
         ;;
 esac
 
-run_dir="/var/run/user/${UserID}/${class}"
+run_dir="${XDG_RUNTIME_DIR:-/run/user/${UserID}}/${class}"
 run_file="${run_dir}/${class}.lock"
 p_file="${run_dir}/${class}.pipe"
 
