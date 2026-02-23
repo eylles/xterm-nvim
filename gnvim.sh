@@ -4,6 +4,7 @@ term_cmd="x-terminal-emulator"
 no_tmux=""
 nv_cmd="/usr/bin/nvim"
 class="gnvim"
+opencmd="edit"
 
 config_dir="${XDG_CONFIG_HOME:-${HOME}/.config}/gnvim"
 config_file="${config_dir}/configrc"
@@ -21,6 +22,11 @@ term_cmd="${term_cmd}"
 
 # neovim command
 nv_cmd="${nv_cmd}"
+
+# open command
+# used internally by neovim to open a file if not using tmux
+# supported values: edit, tabedit, split, vsplit, drop
+opencmd="${opencmd}"
 
 # gnvim class
 class="${class}"
@@ -128,7 +134,15 @@ if [ "$hasterm" -eq "$b_true" ]; then
     if [ -z "$no_tmux" ]; then
         exec tmux-nvim --session-id "$class" "$@"
     else
-        exec nvim --server "$p_file" --remote-send "<C-\\><C-N>:tabedit ${*}<CR>"
+        case "$opencmd" in
+            edit|tabedit|split|vsplit|drop)
+                : # do nothing, we just accept those values
+                ;;
+            *) # fallback to default if not a supported command
+                opencmd="edit"
+                ;;
+        esac
+        exec nvim --server "$p_file" --remote-send "<C-\\><C-N>:${opencmd} ${*}<CR>"
     fi
 else
     if [ -z "$no_tmux" ]; then
