@@ -40,16 +40,18 @@ is used to ensure support of these options within debian and derivates.
 .TP
 .B
 nv_cmd
-the neovim command to use, by default
+the neovim command to use, can be set to any custom wrapper command the user chooses.
+
+default
 .B /usr/bin/nvim
-is used, but can be set to any custom wrapper command the user chooses.
 
 .TP
 .B
 class
-the class for the gnvim instance and the value for the session id var $ID, the
+the class for the gnvim instance and the value for the session id var $ID
+
+default
 .B gnvim
-class is used by default.
 
 .TP
 .B

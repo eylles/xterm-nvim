@@ -19,6 +19,9 @@ supported by this utility:
     nvim://open/?url=file:///path/to/file&line=123
     nvim://open/?uri=file:///path/to/file&line=123
 
+    nvim://open?/file=/path/to/file&line=123
+    nvim://open?/url=file:///path/to/file&line=123
+    nvim://open?/uri=file:///path/to/file&line=123
 
 .P
 The installed .desktop file is built to handle the following schemas:
