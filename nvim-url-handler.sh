@@ -56,6 +56,10 @@ case "$uri" in
         line="${uri##*://open/?file=*}"
         line="${uri##*://open/?url=*}"
         line="${uri##*://open/?uri=*}"
+
+        line="${uri##*://open?/file=*}"
+        line="${uri##*://open?/url=*}"
+        line="${uri##*://open?/uri=*}"
         ;;
 esac
 line="${line:-1}"
@@ -68,6 +72,9 @@ uri="${uri##*://open/?file=}"
 uri="${uri##*://open/?url=}"
 uri="${uri##*://open/?uri=}"
 
+uri="${uri##*://open?/file=}"
+uri="${uri##*://open?/url=}"
+uri="${uri##*://open?/uri=}"
 
 uri="${uri%%&line=*}"
 file=$(uridecode "${uri}")
